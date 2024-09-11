@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "expo-template-default",
+    "name": "fintech-app",
+    "slug": "fintech-app-lem7bm3h6alqzcqkmeg",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.maebrie2017.fintechapplem7bm3h6alqzcqkmeg"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.maebrie2017.fintechapplem7bm3h6alqzcqkmeg"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +33,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a42e0f89-bdbf-4520-a414-a00836d5ec79"
+      }
+    },
+    "owner": "maebrie2017",
+    "updates": {
+      "url": "https://u.expo.dev/a42e0f89-bdbf-4520-a414-a00836d5ec79"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
