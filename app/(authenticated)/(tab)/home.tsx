@@ -4,21 +4,35 @@ import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import CustomButton from '@/components/custom-button';
 import CustomDropdown from '@/components/drop-down';
+import { useBalanceStore } from '@/store/balance';
 
 
 const BALANCE = 1420;
 
 const Home = () => {
 
-    const onAddMoney = () => {
+    // call all props of our store
+    const {
+        balance,
+        clearTransaction,
+        runTransaction,
+        transactions
+    } = useBalanceStore();
 
+    const onAddMoney = () => {
+        runTransaction({
+            title: 'add',
+            amount: 100,
+            date: new Date().toISOString(),
+            id: crypto.randomUUID()
+        })
     }
 
     return (
         <ScrollView className='bg-background' >
-            <View className='m-[80px] items-center'>
+            <View className='m-[30px] items-center'>
                 <View className='flex items-end justify-center gap-3 relative' >
-                    <Text className='text-[64px] font-semibold'>{BALANCE}</Text>
+                    <Text className='text-[54px] font-semibold'>{BALANCE}</Text>
                     <Text className='text-[32px] ml-[5px] absolute -right-4 bottom-2'>&euro;</Text>
                 </View>
             </View>
@@ -38,7 +52,11 @@ const Home = () => {
                     handlePress={onAddMoney}
                     containerStyles="justify-center items-center flex-col"
                 />
-                <CustomDropdown />
+                <CustomDropdown
+                    handlePress={onAddMoney}
+                    containerStyles=" w-[60px] h-[60px] bg-gray-100 rounded-full items-center justify-center"
+                    icons={'ellipsis-horizontal'}
+                />
             </View>
         </ScrollView>
     )

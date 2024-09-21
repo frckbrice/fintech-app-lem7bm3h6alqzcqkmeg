@@ -15,61 +15,54 @@ import {
     DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Text } from './ui/text';
+import { Ionicons } from '@expo/vector-icons';
+import CustomButton from './custom-button';
+import { Colors } from '@/constants';
+import { TestTube } from 'lucide-react-native';
 
-function CustomDropdown() {
+
+type ButtonProps = {
+    handlePress: () => void,
+    containerStyles?: string,
+    icons?: typeof Ionicons.defaultProps;
+}
+
+function CustomDropdown({ handlePress, containerStyles, icons }: ButtonProps) {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant='outline'>
-                    <Text>Open</Text>
+            <DropdownMenuTrigger asChild className='flex flex-col justify-center  '>
+                <Button
+                    variant='secondary'
+                    className={containerStyles}
+                >
+                    <Ionicons name={icons} size={30} color={Colors.dark}
+                    />
                 </Button>
+
+                {/* <Text className="absolute">More</Text> */}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-64 native:w-72'>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <Text>Team</Text>
-                    </DropdownMenuItem>
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
-                            <Text>Invite users</Text>
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                            <Animated.View entering={FadeIn.duration(200)}>
-                                <DropdownMenuItem>
-                                    <Text>Email</Text>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Text>Message</Text>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <Text>More...</Text>
-                                </DropdownMenuItem>
-                            </Animated.View>
-                        </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                    <DropdownMenuItem>
-                        <Text>New Team</Text>
-                        <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Text>GitHub</Text>
+            <DropdownMenuContent className='border-0 w-32 mx-2 bg-white gap-0'>
+                <DropdownMenuItem className='justify-between flex my-0 ' key={"statement"} >
+                    <Text>Statement</Text>
+                    <Ionicons name={'list-outline'} size={20} color={Colors.dark}
+                    />
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Text>Support</Text>
+
+                <DropdownMenuSeparator className="w-full h-[0.5] bg-black-100" />
+
+                <DropdownMenuItem className='justify-between flex my-0 '>
+                    <Text>Statement</Text>
+                    <Ionicons name={'arrow-undo-circle-outline'} size={20} color={Colors.dark}
+                    />
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled>
-                    <Text>API</Text>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Text>Log out</Text>
-                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+
+                <DropdownMenuSeparator className="w-full h-[0.5] bg-black-100" />
+
+                <DropdownMenuItem className='justify-between flex my-0 ' key={"background"} >
+                    <Text>Background</Text>
+                    <Ionicons name={'logo-python'} size={20} color={Colors.dark}
+                    />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

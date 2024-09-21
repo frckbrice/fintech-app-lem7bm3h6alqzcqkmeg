@@ -67,10 +67,12 @@ export function RootLayoutNav() {
     }
 
     if (!isLoaded) return;
+  }, [loaded]);
 
-    const inAuthGroup = segments[0] === '(authenticated)';
+  useEffect(() => {
+    // const inAuthGroup = segments[0] === '(authenticated)';
 
-    if (isSignedIn && !inAuthGroup) {
+    if (isSignedIn) {
       setTimeout(() => {
         router.replace('/home');
       }, 1000);
@@ -79,7 +81,7 @@ export function RootLayoutNav() {
         router.replace('/');
       }, 1000);
     }
-  }, [loaded]);
+  }, [isSignedIn]);
 
 
   if (!loaded || !isLoaded) {
