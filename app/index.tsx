@@ -7,6 +7,7 @@ import { ResizeMode, Video } from 'expo-av'; // used to play the video.
 import { Link } from 'expo-router';
 import { defaultStyles } from '@/constants';
 import { Colors } from '@/constants';
+import { StatusBar } from 'expo-status-bar';
 
 const LoginPage = () => {
 
@@ -30,7 +31,7 @@ const LoginPage = () => {
       </View>
 
       <View style={styles.buttons}>
-        <Link
+        {/* <Link
           href="/sign-in"
           style={[defaultStyles.pillButton, { flex: 1, backgroundColor: Colors.dark }]}
           asChild>
@@ -49,8 +50,19 @@ const LoginPage = () => {
               Sign up
             </Text>
           </TouchableOpacity>
+        </Link> */}
+        <Link
+          href="/sign-up"
+          style={[defaultStyles.pillButton, { flex: 1, backgroundColor: '#fff' }]}
+          asChild>
+          <TouchableOpacity  >
+            <Text style={{ fontWeight: '700', fontSize: 22 }}>
+              Get Started
+            </Text>
+          </TouchableOpacity>
         </Link>
       </View>
+      <StatusBar style="light" />
     </View >
   )
 };
@@ -84,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // width: '100%',
     fontSize: 50,
-    marginBottom: 30,
+    marginBottom: 60,
     paddingHorizontal: 40,
     gap: 20
   }

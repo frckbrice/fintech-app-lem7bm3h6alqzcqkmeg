@@ -6,7 +6,6 @@ const LOG_LEVEL = {
     FATAL: 'fatal',
     OFF: 'off',
 } as const;
-
 type ObjectValue<T> = T[keyof T];
 
 type LogLevel = ObjectValue<typeof LOG_LEVEL>;
@@ -26,8 +25,19 @@ class AppError extends Error {
         this.name = 'AppError';
     }
 
+    /**
+     * Logs a message with the given level. The message will be prefixed with
+     * the current timestamp and the error name.
+     * @param message The message to log
+     * @param level The level of the message
+     * @example
+     * const error = new AppError('');
+     * error.log('This is a debug message', 'debug');
+     */
     log(message: string, level: LogType) {
-        console.log(`\n\n ${this.name} : ${new Date().toISOString()}: ${LOG_LEVEL[level]}: ${message}\n\n`);
+        const now = new Date().toISOString();
+        const prefix = `\n\n ${this.name} : ${now}: ${LOG_LEVEL[level]}: `;
+        console.log(prefix + message + '\n');
     }
 }
 
