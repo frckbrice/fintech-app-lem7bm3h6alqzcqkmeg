@@ -1,56 +1,79 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import * as React from 'react';
+import Animated, { FadeIn } from 'react-native-reanimated';
+import { Button } from './ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Text } from './ui/text';
 
-type TDropdownProps = {
-    labelField: string;
-    valueField: string;
-};
-
-const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-];
-
-const CustomDropdown = () => {
-    const [value, setValue] = useState<{ label: string; value: string } | null>(null);
+function CustomDropdown() {
 
     return (
-        <View className='w-[60px] h-[60px]'>
-            <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={data}
-                maxHeight={300}
-                labelField={value?.label}
-                valueField={value?.value}
-                placeholder=""
-                value={value}
-                onChange={(item) => {
-                    setValue(item);
-                }}
-            />
-        </View>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant='outline'>
+                    <Text>Open</Text>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-64 native:w-72'>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                        <Text>Team</Text>
+                    </DropdownMenuItem>
+                    <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                            <Text>Invite users</Text>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuSubContent>
+                            <Animated.View entering={FadeIn.duration(200)}>
+                                <DropdownMenuItem>
+                                    <Text>Email</Text>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Text>Message</Text>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    <Text>More...</Text>
+                                </DropdownMenuItem>
+                            </Animated.View>
+                        </DropdownMenuSubContent>
+                    </DropdownMenuSub>
+                    <DropdownMenuItem>
+                        <Text>New Team</Text>
+                        <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <Text>GitHub</Text>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                    <Text>Support</Text>
+                </DropdownMenuItem>
+                <DropdownMenuItem disabled>
+                    <Text>API</Text>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <Text>Log out</Text>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
-};
+}
 
 export default CustomDropdown;
-
-const styles = StyleSheet.create({
-    container: { flex: 1, padding: 16 },
-    dropdown: {
-        height: 50,
-        borderColor: 'gray',
-        borderWidth: 0.5,
-        borderRadius: 8,
-        paddingHorizontal: 8,
-    },
-    placeholderStyle: { fontSize: 16 },
-    selectedTextStyle: { fontSize: 16 },
-    inputSearchStyle: { height: 40, fontSize: 16 },
-    iconStyle: { width: 20, height: 20 },
-});

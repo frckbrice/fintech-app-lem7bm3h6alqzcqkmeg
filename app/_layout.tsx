@@ -8,6 +8,7 @@ import { ClerkProvider, ClerkLoaded, useAuth } from '@clerk/clerk-expo'
 import { Colors } from "@/constants";
 import { ActivityIndicator } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { PortalHost } from '@rn-primitives/portal';
 
 // Cache the Clerk JWT
 const tokenCache = {
@@ -90,17 +91,23 @@ export function RootLayoutNav() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="help" options={{ title: 'Help', presentation: 'modal' }} />
-      <Stack.Screen name="(authenticated)/(tab)" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="(authenticated)/(tab)/crypto" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="(tab)/home" options={{ headerShown: false }} />
+    <>
+
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="help" options={{ title: 'Help', presentation: 'modal' }} />
+        <Stack.Screen name="(authenticated)/(tab)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="(authenticated)/(tab)/crypto" options={{ headerShown: false }} /> */}
+        {/* <Stack.Screen name="(tab)/home" options={{ headerShown: false }} />
       <Stack.Screen name="(tab)/invest" options={{ headerShown: false }} />
       <Stack.Screen name="(tab)/life-style" options={{ headerShown: false }} />
       <Stack.Screen name="(tab)/transfers" options={{ headerShown: false }} /> */}
-    </Stack>
+      </Stack>
+      {/* Default Portal Host (one per app) */}
+      <PortalHost />
+    </>
+
   );
 }
 
