@@ -32,7 +32,17 @@
       "expo-router",
       "expo-asset",
       "expo-secure-store",
-      "expo-build-properties"
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -49,18 +59,5 @@
     "runtimeVersion": {
       "policy": "appVersion"
     }
-  },
-  "plugins": [
-    [
-      "expo-build-properties",
-      {
-        "ios": {
-          "newArchEnabled": true
-        },
-        "android": {
-          "newArchEnabled": true
-        }
-      }
-    ]
-  ]
+  }
 }
