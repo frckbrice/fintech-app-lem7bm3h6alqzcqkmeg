@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fintech-app",
-    "slug": "fintech-app",
+    "name": "fintech-app-lem7bm3h6alqzcqkmeg",
+    "slug": "fintech-app-lem7bm3h6alqzcqkmeg",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,7 +31,18 @@
     "plugins": [
       "expo-router",
       "expo-asset",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -45,8 +56,6 @@
     "updates": {
       "url": "https://u.expo.dev/a42e0f89-bdbf-4520-a414-a00836d5ec79"
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    }
+    "runtimeVersion": "1.0.0"
   }
 }

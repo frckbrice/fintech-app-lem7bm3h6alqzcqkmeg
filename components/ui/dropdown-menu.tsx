@@ -65,7 +65,7 @@ const DropdownMenuSubContent = React.forwardRef<
         'z-50 min-w-[8rem] overflow-hidden rounded-md border border-border mt-1 bg-popover p-1 shadow-md shadow-foreground/5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         open
           ? 'web:animate-in web:fade-in-0 web:zoom-in-95'
-          : 'web:animate-out web:fade-out-0 web:zoom-out ',
+          : 'web:animate-out web:fade-outp-0',
         className
       )}
       {...props}
@@ -121,11 +121,11 @@ const DropdownMenuItem = React.forwardRef<
     inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
-  <TextClassContext.Provider value='select-none text-sm native:text-lg text-popover-foreground web:group-focus:text-accent-foreground'>
+  <TextClassContext.Provider value='select-none text-xs native:text-lg text-popover-foreground web:group-focus:text-accent-foreground '>
     <DropdownMenuPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex flex-row web:cursor-default gap-2 items-center rounded-sm px-2 py-1.5 native:py-2 web:outline-none web:focus:bg-accent active:bg-accent web:hover:bg-accent group',
+        'relative flex flex-row web:cursor-default items-center rounded-sm px-2 py-1.5 native:py-2 web:outline-none web:focus:bg-accent active:bg-accent web:hover:bg-accent group',
         inset && 'pl-8',
         props.disabled && 'opacity-50 web:pointer-events-none',
         className

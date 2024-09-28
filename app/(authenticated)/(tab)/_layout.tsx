@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, } from 'react-native'; 3
-import { Tabs, Slot, Stack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
+import { Tabs } from 'expo-router';
+import { BlurView } from 'expo-blur';
 import { Colors } from '@/constants';
 import { FontAwesome } from '@expo/vector-icons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import CustomHeader from '@/components/custom-header';
 
 const TabsLayout = () => {
     return (
@@ -12,11 +12,23 @@ const TabsLayout = () => {
             <Tabs
                 screenOptions={{
                     tabBarActiveTintColor: Colors.primary,
+                    tabBarBackground: () => (
+                        // adding the blur with BlurView component.
+                        <BlurView
+                            intensity={100}
+                            tint='light' // you can play around with this list of colors
+                            style={{
+                                flex: 1,
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                            }}
+                        />
+                    ),
                     tabBarStyle: {
-                        // backgroundColor: "#161622",
-                        borderTopWidth: 1,
-                        height: 80,
-                        paddingBottom: 10,
+                        backgroundColor: "transparent",
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0
 
                     },
                 }}
@@ -29,7 +41,8 @@ const TabsLayout = () => {
                         tabBarIcon: ({ size, color, focused }: { size: number, color: string, focused: boolean }) => (
                             <FontAwesome name="registered" size={size} color={color} />
                         ),
-
+                        header: () => <CustomHeader />,
+                        headerTransparent: true
                     }}
                 />
                 <Tabs.Screen
