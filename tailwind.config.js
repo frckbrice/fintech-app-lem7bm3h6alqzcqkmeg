@@ -20,7 +20,7 @@ module.exports = {
           100: "#1E1E2D",
           200: "#232533",
         },
-        gray: {
+        lightGray: {
           100: '#CDCDE0',
           200: '#626D77',
         },

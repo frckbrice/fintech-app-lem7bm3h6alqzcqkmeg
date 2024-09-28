@@ -70,9 +70,9 @@ export function RootLayoutNav() {
   }, [loaded]);
 
   useEffect(() => {
-    // const inAuthGroup = segments[0] === '(authenticated)';
+    const inAuthGroup = segments[0] === '(authenticated)';
 
-    if (isSignedIn) {
+    if (isSignedIn && !inAuthGroup) {
       setTimeout(() => {
         router.replace('/home');
       }, 1000);
