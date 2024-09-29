@@ -17,10 +17,7 @@ const TabsLayout = () => {
                         <BlurView
                             intensity={100}
                             tint='light' // you can play around with this list of colors
-                            style={{
-                                flex: 1,
-                                backgroundColor: 'rgba(0,0,0,0.5)',
-                            }}
+                            className="bg-[rgba(0,0,0,0.5)] flex-1"
                         />
                     ),
                     tabBarStyle: {
@@ -78,10 +75,11 @@ const TabsLayout = () => {
                         title: 'Crypto',
                         tabBarIcon: ({ size, color, focused }: { size: number, color: string, focused: boolean }) => (
                             <FontAwesome name="bitcoin" size={size} color={color} />
-                        )
+                        ),
+                        header: () => <CustomHeader />,
+                        headerTransparent: true
                     }}
                 />
-
             </Tabs >
         </SafeAreaProvider>
     )
