@@ -2,7 +2,7 @@
 import { useFonts } from "expo-font";
 import { Stack, SplashScreen, useRouter, useSegments, } from "expo-router";
 import React, { useEffect } from "react";
-import { useColorScheme, View } from "react-native";
+import { TouchableOpacity, useColorScheme, View } from "react-native";
 import * as SecureStore from 'expo-secure-store'
 import { ClerkProvider, ClerkLoaded, useAuth } from '@clerk/clerk-expo'
 import { Colors } from "@/constants";
@@ -43,6 +43,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { Ionicons } from "@expo/vector-icons";
 
 
 // prevent the splash screem from auto-hiding before asset loading is complete
@@ -107,12 +108,34 @@ export function RootLayoutNav() {
 
   return (
     <>
-
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="help" options={{ title: 'Help', presentation: 'modal' }} />
         <Stack.Screen name="(authenticated)/(tab)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(authenticated)/crypto/[id]"
+          options={{
+            title: '',
+            headerLeft: () => (
+              <TouchableOpacity onPress={router.back}>
+                <Ionicons name="arrow-back" size={34} color={Colors.dark} />
+              </TouchableOpacity>
+            ),
+            headerLargeTitle: true,
+            headerTransparent: true,
+            headerRight: () => (
+              <View style={{ flexDirection: 'row', gap: 10 }}>
+                <TouchableOpacity>
+                  <Ionicons name="notifications-outline" color={Colors.dark} size={30} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Ionicons name="star-outline" color={Colors.dark} size={30} />
+                </TouchableOpacity>
+              </View>
+            ),
+          }}
+        />
       </Stack>
       {/* Default Portal Host (one per app) */}
       <PortalHost />
