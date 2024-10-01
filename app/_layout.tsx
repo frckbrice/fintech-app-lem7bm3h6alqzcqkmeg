@@ -44,6 +44,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { Ionicons } from "@expo/vector-icons";
+import { UserInactivityProvider } from "@/context/user-inactivity";
 
 
 // prevent the splash screem from auto-hiding before asset loading is complete
@@ -137,6 +138,7 @@ export function RootLayoutNav() {
           }}
         />
       </Stack>
+      <Stack.Screen name="(authenticated)/(modals)/lock" options={{ headerShown: false, animation: 'none ' }} />
       {/* Default Portal Host (one per app) */}
       <PortalHost />
     </>
@@ -152,10 +154,12 @@ const RootLayout = () => {
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
         <QueryClientProvider client={queryClient}>
-          <GestureHandlerRootView className="flex-1">
-            {/* <StatusBar style="light" /> */}
-            <RootLayoutNav />
-          </GestureHandlerRootView>
+          <UserInactivityProvider>
+            <GestureHandlerRootView className="flex-1">
+              {/* <StatusBar style="light" /> */}
+              <RootLayoutNav />
+            </GestureHandlerRootView>
+          </UserInactivityProvider>
         </QueryClientProvider>
       </ClerkLoaded>
     </ClerkProvider>
