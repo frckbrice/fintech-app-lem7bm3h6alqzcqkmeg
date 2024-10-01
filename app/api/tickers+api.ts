@@ -1,4 +1,4 @@
-import { ExpoRequest, ExpoResponse } from 'expo-router/server';
+// import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 
 export async function GET(request: Request) {
     // const response = await fetch(
@@ -6,8 +6,8 @@ export async function GET(request: Request) {
     // );
 
     // const res = await response.json();
-    // return ExpoResponse.json(res.data);
-    return ExpoResponse.json(data);
+    // return Response.json(res.data);
+    return Response.json(data);
 }
 
 const data = [

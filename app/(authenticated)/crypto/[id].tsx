@@ -15,32 +15,34 @@ import { Colors, defaultStyles } from '@/constants';
 import { useQuery } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-const categories = ['Overview', 'News', 'Orders', 'Transactions'];
-// import { CartesianChart, Line, useChartPressState } from 'victory-native';
-// import { Circle, useFont } from '@shopify/react-native-skia';
-// import { format } from 'date-fns';
-// import * as Haptics from 'expo-haptics';
+import { CartesianChart, Line, useChartPressState } from 'victory-native';
+import { Circle, useFont } from '@shopify/react-native-skia';
+import { format } from 'date-fns';
+import * as Haptics from 'expo-haptics';
 import Animated, { SharedValue, useAnimatedProps } from 'react-native-reanimated';
 
+// this helps set the text and animated accordingly
 Animated.addWhitelistedNativeProps({ text: true });
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-// function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
-//     return <Circle cx={x} cy={y} r={8} color={Colors.primary} />;
-// }
+function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
+    return <Circle cx={x} cy={y} r={8} color={Colors.primary} />;
+}
+
+const categories = ['Overview', 'News', 'Orders', 'Transactions'];
 
 const Page = () => {
     const { id } = useLocalSearchParams();
     // get the header height
     const headerHeight = useHeaderHeight();
     const [activeIndex, setActiveIndex] = useState(0);
-    // const font = useFont(require('@/assets/fonts/SpaceMono-Regular.ttf'), 12);
-    // const { state, isActive } = useChartPressState({ x: 0, y: { price: 0 } });
+    const font = useFont(require('@/assets/fonts/SpaceMono-Regular.ttf'), 12);
+    const { state, isActive } = useChartPressState({ x: 0, y: { price: 0 } });
 
-    // useEffect(() => {
-    //     console.log(isActive);
-    //     if (isActive) Haptics.selectionAsync();
-    // }, [isActive]);
+    useEffect(() => {
+        console.log(isActive);
+        if (isActive) Haptics.selecuseAnimatedPropstionAsync();
+    }, [isActive]);
 
     const { data } = useQuery({
         queryKey: ['info', id],
@@ -50,32 +52,36 @@ const Page = () => {
         },
     });
 
-    // const { data: tickers } = useQuery({
-    //     queryKey: ['tickers'],
-    //     queryFn: async (): Promise<any[]> => fetch(`/api/tickers`).then((res) => res.json()),
-    // });
+    const { data: tickers } = useQuery({
+        queryKey: ['tickers'],
+        queryFn: async (): Promise<any[]> => fetch(`/api/tickers`).then((res) => res.json()),
+    });
 
-    // const animatedText = useAnimatedProps(() => {
-    //     return {
-    //         text: `${state.y.price.value.value.toFixed(2)} €`,
-    //         defaultValue: '',
-    //     };
-    // });
+    const animatedText = useAnimatedProps(() => {
+        return {
+            text: `${state.y.price.value.value.toFixed(2)} €`,
+            defaultValue: '',
+        };
+    });
 
-    // const animatedDateText = useAnimatedProps(() => {
-    //     const date = new Date(state.x.value.value);
-    //     return {
-    //         text: `${date.toLocaleDateString()}`,
-    //         defaultValue: '',
-    //     };
-    // });
+    const animatedDateText = useAnimatedProps(() => {
+        const date = new Date(state.x.value.value);
+        return {
+            text: `${date.toLocaleDateString()}`,
+            defaultValue: '',
+        };
+    });
 
     return (
         <>
             <Stack.Screen options={{ title: data?.name }} />
+            {/* section help structure the view with different elements
+                and more important, have the header title view sticky
+            */}
             <SectionList
                 style={{ marginTop: headerHeight }}
-                // this below helps collapse the large title as enabled in the _layout stack.screen file.
+                // this below helps collapse the large title with the page title 
+                // as enabled in the _layout stack.screen file.
                 contentInsetAdjustmentBehavior="automatic"
 
                 keyExtractor={(i) => i.title}
@@ -118,7 +124,9 @@ const Page = () => {
                                 alignItems: 'center',
                                 marginHorizontal: 16,
                             }}>
+                            {/*currency name  symbol  */}
                             <Text style={styles.subtitle}>{data?.symbol}</Text>
+                            {/* display the currency logo */}
                             <Image source={{ uri: data?.logo }} style={{ width: 60, height: 60 }} />
                         </View>
 
@@ -145,9 +153,11 @@ const Page = () => {
                 renderItem={({ item }) => (
                     <>
                         <View style={[defaultStyles.block, { height: 500 }]}>
-                            {/* {tickers && (
+                            {tickers && (
                                 <>
+                                    {/* display default price when not pressing on the chart */}
                                     {!isActive && (
+
                                         <View>
                                             <Text style={{ fontSize: 30, fontWeight: 'bold', color: Colors.dark }}>
                                                 {tickers[tickers.length - 1].price.toFixed(2)} €
@@ -157,16 +167,20 @@ const Page = () => {
                                     )}
                                     {isActive && (
                                         <View>
+                                            {/* to vary the price text while scrolling */}
                                             <AnimatedTextInput
                                                 editable={false}
                                                 underlineColorAndroid={'transparent'}
                                                 style={{ fontSize: 30, fontWeight: 'bold', color: Colors.dark }}
                                                 animatedProps={animatedText}></AnimatedTextInput>
+                                            {/* to animated the date according to the price */}
                                             <AnimatedTextInput
                                                 editable={false}
                                                 underlineColorAndroid={'transparent'}
                                                 style={{ fontSize: 18, color: Colors.gray }}
-                                                animatedProps={animatedDateText}></AnimatedTextInput>
+                                                animatedProps={animatedDateText}>
+
+                                            </AnimatedTextInput>
                                         </View>
                                     )}
                                     <CartesianChart
@@ -184,13 +198,15 @@ const Page = () => {
                                         yKeys={['price']}>
                                         {({ points }) => (
                                             <>
+                                                {/* draw line of the chart */}
                                                 <Line points={points.price} color={Colors.primary} strokeWidth={3} />
+                                                {/* add tooltip on press on the line */}
                                                 {isActive && <ToolTip x={state.x.position} y={state.y.price.position} />}
                                             </>
                                         )}
                                     </CartesianChart>
                                 </>
-                            )} */}
+                            )}
                         </View>
                         <View style={[defaultStyles.block, { marginTop: 20 }]}>
                             <Text style={styles.subtitle}>Overview</Text>
